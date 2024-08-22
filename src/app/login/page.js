@@ -1,17 +1,53 @@
 "use client";
 import React, { useState } from 'react';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
+
 function Page() {
-    // Define state variables for username and password
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const handleSignIn = () => {
+    const router = useRouter();
+
+    const handleSignIn = async () => {
         if (!username || !password) {
             alert('Please fill all the fields');
             return;
         }
-        console.log('Username:', username);
-        console.log('Password:', password);
+
+        try {
+            const response = await axios.post('http://localhost:1337/api/auth/local', {
+                user_name: username,  // This should be 'username' or 'email'
+                password: password
+            });
+
+            if (response.status === 200) {
+                console.log('Login successful:', response.data);
+                alert('Login successful');
+                router.push('/');
+            }
+        } catch (error) {
+            if (error.response) {
+                const { status, data } = error.response;
+                switch (status) {
+                    case 400:
+                        alert('Invalid credentials. Please check your username and password.');
+                        break;
+                    case 403:
+                        alert('Access denied. You might not have permission to access this resource.');
+                        break;
+                    default:
+                        alert('An unexpected error occurred. Please try again later.');
+                }
+                console.error('Error details:', data);
+            } else {
+                alert('Network error. Please check your connection.');
+                console.error('Network error:', error.message);
+            }
+        }
     };
+
+
+
     return (
         <div className="w-screen h-screen flex items-center justify-center">
             <div className="w-[25rem] min-h-[50%] border border-slate-300 flex flex-col p-5 gap-5">
@@ -46,4 +82,5 @@ function Page() {
         </div>
     );
 }
+
 export default Page;
