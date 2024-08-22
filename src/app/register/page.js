@@ -27,7 +27,7 @@ function page() {
                 setUsername('');
                 setEmail('');
                 setPassword('');
-                router.push('/');
+                router.push('/login');
             }
         } catch (error) {
             console.error('Registration failed:', error.response.data);
@@ -53,7 +53,7 @@ function page() {
                     <input type="password" placeholder='Enter password' value={password} onChange={(e) => setPassword(e.target.value)} className='border border-slate-300 bg-[transparent] p-2' />
                 </div>
                 <button onClick={handleRegister} className='bg-blue-500 text-white p-2 hover:bg-blue-600'>Signup</button>
-                <p className='text-sm text-center cursor-pointer' onClick = {() => router.push('/login')}>Already have an account? <span className='cursor-pointer hover:underline hover:text-blue-500'>Login</span></p>
+                <p className='text-sm text-center cursor-pointer' onClick={() => router.push('/login')}>Already have an account? <span className='cursor-pointer hover:underline hover:text-blue-500'>Login</span></p>
 
             </div>
         </div>
