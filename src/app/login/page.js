@@ -22,6 +22,7 @@ function Page() {
 
             if (response.status === 200) {
                 console.log('Login successful:', response.data);
+                localStorage.setItem('username', username);
                 alert('Login successful');
                 router.push('/');
             }
