@@ -15,8 +15,8 @@ function Page() {
         }
 
         try {
-            const response = await axios.post('http://localhost:1337/api/auth/local', {
-                user_name: username,  // This should be 'username' or 'email'
+            const response = await axios.post('http://localhost:1337/api/login', {
+                user_name: username,
                 password: password
             });
 
@@ -79,6 +79,7 @@ function Page() {
                 >
                     Sign In
                 </button>
+                <p className='text-sm text-center cursor-pointer' onClick={() => router.push('/register')}>Don't have an account? <span className='cursor-pointer hover:underline hover:text-blue-500'>SignUp</span></p>
             </div>
         </div>
     );
