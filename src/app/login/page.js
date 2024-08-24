@@ -24,7 +24,7 @@ function Page() {
                 console.log('Login successful:', response.data);
                 localStorage.setItem('username', username);
                 alert('Login successful');
-                router.push('/');
+                router.push('/chatRoom');
             }
         } catch (error) {
             if (error.response) {
